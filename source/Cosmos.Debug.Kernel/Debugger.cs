@@ -7,7 +7,7 @@ namespace Cosmos.Debug.Kernel {
     public class Debugger {
         public Debugger(string aRing, string aSection) {
         }
-
+        public void MagicBreakpoint() { } //Plugged
         public void Break() { } // Plugged
         public unsafe void Send(int aLength, char* aText) { } // Plugged
         //public void TraceOff() { } // Plugged

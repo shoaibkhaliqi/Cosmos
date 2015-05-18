@@ -26,7 +26,6 @@ namespace Cosmos.Core.IOGroup {
     internal ATA(bool aSecondary)
     {
       Console.WriteLine("Creating ATA IOGroup");
-
       var xBAR0 = GetBAR0(aSecondary);
       var xBAR1 = GetBAR1(aSecondary);
       Data = new IOPort(xBAR0);

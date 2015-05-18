@@ -20,6 +20,9 @@ namespace Cosmos.Debug.Kernel.Plugs {
     public static unsafe void SendPtr(Kernel.Debugger aThis, object aPtr) { }
     [PlugMethod(Assembler = typeof(DebugSendChannelCommand))]
     public static unsafe void SendChannelCommand(byte aChannel, byte aCommand, int aByteCount, byte* aData) { }
+
+    [PlugMethod(Assembler = typeof(DebugMagicBreakpoint))]
+    public static unsafe void MagicBreakpoint() { }
     //[PlugMethod(Assembler = typeof(DebugTraceOff))]
     //public static void TraceOff() { }
 
@@ -30,6 +33,14 @@ namespace Cosmos.Debug.Kernel.Plugs {
   //TODO: Make a new plug attrib that assembly plug methods dont need
   // an empty stub also, its just extra fluff - although they allow signature matching
   // Maybe could merge this into the same unit as the plug
+  public class DebugMagicBreakpoint : AssemblerMethod
+  {
+    public override void AssembleNew(Cosmos.Assembler.Assembler aAssembler, object aMethodInfo)
+    {
+      new LiteralAssemblerCode("xchgw bx, bx");
+    }
+  }
+
   public class DebugTraceOff : AssemblerMethod {
     public override void AssembleNew(Cosmos.Assembler.Assembler aAssembler, object aMethodInfo) {
      new LiteralAssemblerCode("%ifdef DEBUGSTUB");
